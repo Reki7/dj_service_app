@@ -11,6 +11,7 @@ from services.serializers import SubscriptionSerializer
 class SubscriptionView(ReadOnlyModelViewSet):
     # queryset = Subscription.objects.all().prefetch_related('client__user')
     queryset = Subscription.objects.all().prefetch_related(
+        'plan',
         Prefetch('client', queryset=Client.objects.all().select_related('user').    # LEARN: select_related !!
                  only('company_name', 'user__email'))      # LEARN: Сокращение перечня запрашиваемых полей (только нужные)
     )
